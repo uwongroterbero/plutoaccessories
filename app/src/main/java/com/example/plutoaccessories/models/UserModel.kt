@@ -1,4 +1,4 @@
-package com.example.plutoaccessories.activities
+package com.example.plutoaccessories.models
 
 data class UserModel(
     val id_user: Int,

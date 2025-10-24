@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.plutoaccessories.R
+import com.example.plutoaccessories.models.UserModel
 
 class ManageUsersAdapter(private val userList: List<UserModel>) :
     RecyclerView.Adapter<ManageUsersAdapter.UserViewHolder>() {
