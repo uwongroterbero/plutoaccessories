@@ -28,9 +28,9 @@ class CartActivity : AppCompatActivity() {
         btnCheckout = findViewById(R.id.btnCheckout)
 
         // Dummy data untuk testing
-        cartList.add(CartItem("Gelang Titanium", 50000, 1, R.drawable.sample_product))
-        cartList.add(CartItem("Kalung Perak", 75000, 2, R.drawable.sample_product))
-        cartList.add(CartItem("Cincin Couple", 120000, 1, R.drawable.sample_product))
+        cartList.add(CartItem("Gelang Titanium", 50000, 1, R.drawable.gelangtitanium))
+        cartList.add(CartItem("Kalung Perak", 75000, 2, R.drawable.kalungtitanium))
+        cartList.add(CartItem("Cincin Couple", 120000, 1, R.drawable.cincincouple))
 
         cartAdapter = CartAdapter(cartList) { item ->
             removeFromCart(item)
