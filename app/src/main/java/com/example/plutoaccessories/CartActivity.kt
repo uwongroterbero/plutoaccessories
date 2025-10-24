@@ -1,20 +1,62 @@
-package com.example.plutoaccessories
+package com.example.plutoaccessories.activities
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
+import android.widget.Button
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.plutoaccessories.R
+import com.example.plutoaccessories.adapters.CartAdapter
+import com.example.plutoaccessories.models.CartItem
 
 class CartActivity : AppCompatActivity() {
+
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var tvTotalHarga: TextView
+    private lateinit var btnCheckout: Button
+
+    private lateinit var cartAdapter: CartAdapter
+    private val cartList = mutableListOf<CartItem>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_cart)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
+
+        recyclerView = findViewById(R.id.recyclerViewCart)
+        tvTotalHarga = findViewById(R.id.tvTotalHarga)
+        btnCheckout = findViewById(R.id.btnCheckout)
+
+        // Dummy data untuk testing
+        cartList.add(CartItem("Gelang Titanium", 50000, 1, R.drawable.sample_product))
+        cartList.add(CartItem("Kalung Perak", 75000, 2, R.drawable.sample_product))
+        cartList.add(CartItem("Cincin Couple", 120000, 1, R.drawable.sample_product))
+
+        cartAdapter = CartAdapter(cartList) { item ->
+            removeFromCart(item)
         }
+
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = cartAdapter
+
+        updateTotalHarga()
+
+        btnCheckout.setOnClickListener {
+            // Simulasikan checkout
+            tvTotalHarga.text = "Pesanan Diproses ✅"
+            cartList.clear()
+            cartAdapter.notifyDataSetChanged()
+        }
+    }
+
+    private fun removeFromCart(item: CartItem) {
+        cartList.remove(item)
+        cartAdapter.notifyDataSetChanged()
+        updateTotalHarga()
+    }
+
+    private fun updateTotalHarga() {
+        val total = cartList.sumOf { it.harga * it.jumlah }
+        tvTotalHarga.text = "Total: Rp $total"
     }
 }
