@@ -15,8 +15,10 @@ import com.android.volley.VolleyError
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.plutoaccessories.R
+import com.example.plutoaccessories.utils.SessionManager   // ✅ Tambahkan baris ini
 import org.json.JSONException
 import org.json.JSONObject
+
 
 class LoginActivity : AppCompatActivity() {
     private var etEmail: EditText? = null
@@ -30,9 +32,9 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
 
         session = SessionManager(this)
-        if (session!!.isLoggedIn()) {
+        if (session!!.isLoggedIn) {
             // Jika sudah login, langsung arahkan sesuai role
-            gotoAppropriateActivity(session!!.getRole())
+            gotoAppropriateActivity(session!!.role)
             finish()
             return
         }

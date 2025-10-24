@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- izin internet diletakkan di sini -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -11,8 +14,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Plutoaccessories">
+
         <activity
-            android:name=".ManageUsersActivity"
+            android:name=".activities.ManageUsersActivity"
             android:exported="false" />
         <activity
             android:name=".ManageOrdersActivity"
@@ -24,7 +28,7 @@
             android:name=".activities.AdminDashboardActivity"
             android:exported="false" />
         <activity
-            android:name=".ProfileActivity"
+            android:name=".activities.ProfileActivity"
             android:exported="false" />
         <activity
             android:name=".OrderHistoryActivity"
@@ -36,24 +40,22 @@
             android:name=".WalletActivity"
             android:exported="false" />
         <activity
-            android:name=".CartActivity"
+            android:name=".activities.CartActivity"
             android:exported="false" />
         <activity
             android:name=".DetailProductActivity"
             android:exported="false" />
         <activity
-            android:name=".ProductActivity"
+            android:name=".activities.ProductActivity"
             android:exported="false" />
         <activity
-            android:name=".RegisterActivity"
+            android:name=".activities.RegisterActivity"
             android:exported="false" />
         <activity
             android:name=".activities.MainActivity"
             android:exported="true">
             <intent-filter>
-                <uses-permission android:name="android.permission.INTERNET" />
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
