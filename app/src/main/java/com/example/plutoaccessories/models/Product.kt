@@ -1,4 +1,8 @@
-package com.example.plutoaccessories.models;
+package com.example.plutoaccessories.models
 
-public class Product {
-}
+data class Product(
+        val nama: String,
+        val deskripsi: String,
+        val harga: String,
+        val gambar: Int
+)

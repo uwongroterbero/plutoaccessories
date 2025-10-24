@@ -1,4 +1,4 @@
-package com.example.plutoaccessories.activities
+package com.example.plutoaccessories.adapters
 
 import android.view.LayoutInflater
 import android.view.View

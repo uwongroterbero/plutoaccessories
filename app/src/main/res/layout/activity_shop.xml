@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F9F9F9"
+    tools:context=".activities.ShopActivity">
+
+    <TextView
+        android:id="@+id/tvTitleShop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="🛍️ Produk Pluto Accessories"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:padding="16dp"
+        android:background="#6200EE"
+        android:textColor="#FFFFFF" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewProducts"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="8dp"
+        android:scrollbars="vertical" />
+
+</LinearLayout>

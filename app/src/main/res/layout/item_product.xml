@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="6dp"
+    android:background="#FFFFFF"
+    android:elevation="4dp"
+    android:padding="8dp"
+    android:gravity="center"
+    android:layout_weight="1">
+
+    <ImageView
+        android:id="@+id/imgProduct"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_launcher_foreground" />
+
+    <TextView
+        android:id="@+id/tvNamaProduct"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nama Produk"
+        android:textStyle="bold"
+        android:textColor="#222222"
+        android:textSize="14sp"
+        android:layout_marginTop="6dp"
+        android:gravity="center" />
+
+    <TextView
+        android:id="@+id/tvHargaProduct"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rp 0"
+        android:textColor="#03A9F4"
+        android:textSize="13sp"
+        android:gravity="center" />
+</LinearLayout>
