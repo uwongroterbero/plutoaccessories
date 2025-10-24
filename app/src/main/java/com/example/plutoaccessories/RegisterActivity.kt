@@ -13,6 +13,8 @@ import com.android.volley.VolleyError
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.plutoaccessories.R
+import com.example.plutoaccessories.utils.SessionManager
+import com.example.plutoaccessories.utils.ValidationHelper
 import org.json.JSONException
 import org.json.JSONObject
 
@@ -26,9 +28,10 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var btnRegister: Button
     private lateinit var btnLogin: Button
     private lateinit var progressDialog: ProgressDialog
+    private lateinit var sessionManager: SessionManager
 
     companion object {
-        // Gunakan IP lokal emulator (ubah jika pakai HP fisik)
+        // Ganti sesuai API kamu
         private const val URL_REGISTER = "http://10.0.2.2/pluto_api/register_user.php"
     }
 
@@ -48,11 +51,12 @@ class RegisterActivity : AppCompatActivity() {
         progressDialog.setMessage("Mendaftarkan akun...")
         progressDialog.setCancelable(false)
 
+        sessionManager = SessionManager(this)
+
         btnRegister.setOnClickListener { registerUser() }
 
         btnLogin.setOnClickListener {
-            val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
-            startActivity(intent)
+            startActivity(Intent(this, LoginActivity::class.java))
             finish()
         }
     }
@@ -64,8 +68,25 @@ class RegisterActivity : AppCompatActivity() {
         val alamat = etAlamat.text.toString().trim()
         val no_hp = etNoHp.text.toString().trim()
 
-        if (nama.isEmpty() || email.isEmpty() || password.isEmpty()) {
-            Toast.makeText(this, "Nama, Email, dan Password wajib diisi!", Toast.LENGTH_SHORT).show()
+        // ✅ Validasi input pakai ValidationHelper
+        if (!ValidationHelper.isValidName(nama)) {
+            etNama.error = "Nama minimal 3 huruf"
+            return
+        }
+        if (!ValidationHelper.isValidEmail(email)) {
+            etEmail.error = "Email tidak valid"
+            return
+        }
+        if (!ValidationHelper.isValidPassword(password)) {
+            etPassword.error = "Password minimal 6 karakter"
+            return
+        }
+        if (!ValidationHelper.isValidPhone(no_hp)) {
+            etNoHp.error = "Nomor HP tidak valid"
+            return
+        }
+        if (!ValidationHelper.isValidAddress(alamat)) {
+            etAlamat.error = "Alamat minimal 5 karakter"
             return
         }
 
@@ -83,8 +104,11 @@ class RegisterActivity : AppCompatActivity() {
                     Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
 
                     if (success == 1) {
-                        val intent = Intent(this, LoginActivity::class.java)
-                        startActivity(intent)
+                        // ✅ Simpan data ke session
+                        val userId = jsonObject.optInt("id_user", -1)
+                        sessionManager.createLoginSession(userId, nama, email, "user")
+
+                        startActivity(Intent(this, LoginActivity::class.java))
                         finish()
                     }
                 } catch (e: JSONException) {
@@ -96,6 +120,7 @@ class RegisterActivity : AppCompatActivity() {
                 progressDialog.dismiss()
                 Toast.makeText(this, "Koneksi gagal: ${error.message}", Toast.LENGTH_LONG).show()
             }) {
+
             override fun getParams(): MutableMap<String, String> {
                 val params = HashMap<String, String>()
                 params["nama"] = nama
@@ -107,7 +132,6 @@ class RegisterActivity : AppCompatActivity() {
             }
         }
 
-        val queue = Volley.newRequestQueue(this)
-        queue.add(stringRequest)
+        Volley.newRequestQueue(this).add(stringRequest)
     }
 }

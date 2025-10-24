@@ -1,47 +1,46 @@
-package com.example.plutoaccessories.utils;
+package com.example.plutoaccessories.utils
 
-import android.content.Context;
-import android.content.SharedPreferences;
+import android.content.Context
+import android.content.SharedPreferences
 
-public class SessionManager {
-    private static final String PREF_NAME = "pluto_session";
-    private static final String KEY_IS_LOGGED_IN = "is_logged_in";
-    private static final String KEY_ID = "id_user";
-    private static final String KEY_NAME = "nama";
-    private static final String KEY_EMAIL = "email";
-    private static final String KEY_ROLE = "role";
+class SessionManager(context: Context) {
+    private val prefs: SharedPreferences
+    private val editor: SharedPreferences.Editor
 
-    private SharedPreferences prefs;
-    private SharedPreferences.Editor editor;
-
-    public SessionManager(Context context){
-        prefs = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
-        editor = prefs.edit();
+    init {
+        prefs = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
+        editor = prefs.edit()
     }
 
-    public void createLoginSession(int idUser, String nama, String email, String role){
-        editor.putBoolean(KEY_IS_LOGGED_IN, true);
-        editor.putInt(KEY_ID, idUser);
-        editor.putString(KEY_NAME, nama);
-        editor.putString(KEY_EMAIL, email);
-        editor.putString(KEY_ROLE, role);
-        editor.commit();
+    fun createLoginSession(idUser: Int, nama: String?, email: String?, role: String?) {
+        editor.putBoolean(KEY_IS_LOGGED_IN, true)
+        editor.putInt(KEY_ID, idUser)
+        editor.putString(KEY_NAME, nama)
+        editor.putString(KEY_EMAIL, email)
+        editor.putString(KEY_ROLE, role)
+        editor.commit()
     }
 
-    public boolean isLoggedIn(){
-        return prefs.getBoolean(KEY_IS_LOGGED_IN, false);
+    val isLoggedIn: Boolean
+        get() = prefs.getBoolean(KEY_IS_LOGGED_IN, false)
+
+    val role: String
+        get() = prefs.getString(KEY_ROLE, "user")!!
+
+    val userId: Int
+        get() = prefs.getInt(KEY_ID, -1)
+
+    fun logout() {
+        editor.clear()
+        editor.commit()
     }
 
-    public String getRole(){
-        return prefs.getString(KEY_ROLE, "user");
-    }
-
-    public int getUserId(){
-        return prefs.getInt(KEY_ID, -1);
-    }
-
-    public void logout(){
-        editor.clear();
-        editor.commit();
+    companion object {
+        private const val PREF_NAME = "pluto_session"
+        private const val KEY_IS_LOGGED_IN = "is_logged_in"
+        private const val KEY_ID = "id_user"
+        private const val KEY_NAME = "nama"
+        private const val KEY_EMAIL = "email"
+        private const val KEY_ROLE = "role"
     }
 }

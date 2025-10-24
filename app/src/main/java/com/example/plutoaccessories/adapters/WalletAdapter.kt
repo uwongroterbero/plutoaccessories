@@ -1,4 +1,4 @@
-package com.example.plutoaccessories.adapters;
+package com.example.plutoaccessories.adapters
 
-public class WalletAdapter {
+class WalletAdapter {
 }

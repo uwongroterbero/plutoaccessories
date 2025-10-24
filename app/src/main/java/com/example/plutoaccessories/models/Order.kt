@@ -1,4 +1,4 @@
-package com.example.plutoaccessories.models;
+package com.example.plutoaccessories.models
 
-public class Order {
+class Order {
 }

@@ -15,9 +15,6 @@ import com.android.volley.VolleyError
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import com.example.plutoaccessories.R
-import com.example.plutoaccessories.RegisterActivity
-import com.example.plutoaccessories.activities.MainActivity
-import com.example.plutoaccessories.utils.SessionManager
 import org.json.JSONException
 import org.json.JSONObject
 
